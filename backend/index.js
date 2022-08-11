@@ -25,7 +25,11 @@ const lista = [
     nome: "Beatriz",
     pontos: 97
   },
-]
+];
+
+app.get("/pontuacoes", function(req, res) {
+  res.send(lista);
+})
 
 app.listen(3000, () => 
   console.log("Servidor rodando em http://localhost:3000")
