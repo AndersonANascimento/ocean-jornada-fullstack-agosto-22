@@ -1,51 +1,61 @@
 const express = require('express')
-const app = express()
+const { MongoClient } = require("mongodb")
 
-// Sinalizando ao Express o uso de JSON no body de requests
-app.use(express.json());
+const url = "mongodb://localhost:27017";
+const dbName = "jornada-fullstack-agosto-2022"
 
-app.get('/', function (req, res) {
-  res.send('Hello World')
-})
+async function main() {
+  // Realizar a conexão com o MongoClient
+  // MongoClient -> MongoDatabase -> MongoCollection
 
-app.get('/oi', function (req, res) {
-  res.send("Olá, mundo!")
-})
+  // Conexões com o client podem levar um tempo para
+  //  concluir. Portanto, utilizamos o mecanismo de
+  //  Promises do JavaScript, que permitem aguardar
+  //  esse tempo. Para isso, vamos usar o async/await.
 
-// Criação de lista com pontuações pré-definidas
-const lista = [
-  {
-    id: 1,
-    nome: "Paulo",
-    pontos: 90
-  },
-  {
-    id: 2,
-    nome: "Daniel",
-    pontos: 52
-  },
-  {
-    id: 3,
-    nome: "Beatriz",
-    pontos: 97
-  },
-];
-
-app.get("/pontuacoes", function(req, res) {
-  res.send(lista);
-})
-
-app.post("/pontuacoes", function(req, res) {
-  const item = req.body
-  console.log(item)
-  lista.push({
-    id: lista.length + 1,
-    nome: item.nome,
-    pontos: item.pontos
+  const client = await MongoClient.connect(url)
+  const db = client.db(dbName)
+  const collection = db.collection("pontuacoes")
+  
+  const app = express()
+  
+  // Sinalizando ao Express o uso de JSON no body de requests
+  app.use(express.json());
+  
+  app.get('/', function (req, res) {
+    res.send('Hello World')
   })
-  res.send("Item criado com sucesso!")
-})
+  
+  app.get('/oi', function (req, res) {
+    res.send("Olá, mundo!")
+  })
 
-app.listen(3000, () => 
+  app.get("/pontuacoes", async function(req, res) {
+    // res.send(lista);
+    const itens = await collection
+      .find()
+      .sort({ pontos: -1 })
+      .limit(10)
+      .toArray();
+
+    res.send(itens);
+  })
+
+  app.post("/pontuacoes", async function(req, res) {
+    const item = req.body
+    // console.log(item)
+    // lista.push({
+    //   id: lista.length + 1,
+    //   nome: item.nome,
+    //   pontos: item.pontos
+    // })
+    await collection.insertOne(item)
+    res.send(item)
+  })
+
+  app.listen(3000, () => 
   console.log("Servidor rodando em http://localhost:3000")
-)
+  )
+}
+
+main()
