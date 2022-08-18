@@ -1,7 +1,8 @@
 const express = require('express')
 const { MongoClient } = require("mongodb")
 
-const url = "mongodb://localhost:27017";
+// const url = "mongodb://localhost:27017";
+const url = "mongodb+srv://admin:tWzHRIEBWod6wjCc@cluster0.z9grwi0.mongodb.net/";
 const dbName = "jornada-fullstack-agosto-2022"
 
 async function main() {
@@ -12,11 +13,11 @@ async function main() {
   //  concluir. Portanto, utilizamos o mecanismo de
   //  Promises do JavaScript, que permitem aguardar
   //  esse tempo. Para isso, vamos usar o async/await.
-  /*
+
   const client = await MongoClient.connect(url)
   const db = client.db(dbName)
   const collection = db.collection("pontuacoes")
-  */
+  
   const app = express()
   
   // Sinalizando ao Express o uso de JSON no body de requests
