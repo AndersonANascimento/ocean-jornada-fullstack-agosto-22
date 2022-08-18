@@ -12,11 +12,11 @@ async function main() {
   //  concluir. Portanto, utilizamos o mecanismo de
   //  Promises do JavaScript, que permitem aguardar
   //  esse tempo. Para isso, vamos usar o async/await.
-
+  /*
   const client = await MongoClient.connect(url)
   const db = client.db(dbName)
   const collection = db.collection("pontuacoes")
-  
+  */
   const app = express()
   
   // Sinalizando ao Express o uso de JSON no body de requests
