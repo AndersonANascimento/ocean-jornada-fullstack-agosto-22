@@ -1,7 +1,8 @@
 const express = require('express')
 const { MongoClient } = require("mongodb")
 
-const url = "mongodb://localhost:27017";
+// const url = "mongodb://localhost:27017";
+const url = "mongodb+srv://admin:tWzHRIEBWod6wjCc@cluster0.z9grwi0.mongodb.net/";
 const dbName = "jornada-fullstack-agosto-2022"
 
 async function main() {
@@ -53,8 +54,8 @@ async function main() {
     res.send(item)
   })
 
-  app.listen(3000, () => 
-  console.log("Servidor rodando em http://localhost:3000")
+  app.listen(process.env.PORT || 3000, () => 
+  console.log("Aplicação rodando em http://localhost:3000")
   )
 }
 
