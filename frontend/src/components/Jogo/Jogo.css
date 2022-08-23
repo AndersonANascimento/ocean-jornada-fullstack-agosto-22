@@ -12,17 +12,26 @@
 }
 
 .cano {
-    width: 100px;
+    height: 50px;
 
     position: absolute;
-    bottom: 0vh;
-    left: 50%;
+    bottom: 30px;
+    right: 50px;
 }
 
 .mario {
-    width: 100px;
+    height: 100px;
 
     position: absolute;
-    bottom: 0vh;
-    left: 0%;
+    bottom: 30px;
+    left: 50px;
+}
+
+.chao {
+    position: absolute;
+    
+    height: 30px;
+    bottom: 0px;
+    width: 100%;
+    background-color: rgb(14, 202, 14);
 }
