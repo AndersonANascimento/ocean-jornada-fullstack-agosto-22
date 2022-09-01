@@ -1,10 +1,14 @@
 import "./HighScore.css";
 
-function HighScore() {
+function HighScore(props) {
+    console.log(props.ponto);
+    fetch("http://localhost:3333/pontuacoes")
+        .then(console.log);
+
     return (
         <div className="HighScore">
             <div>
-                Você fez <b>50</b> pontos!
+                Você fez <b>{ props.pontos }</b> pontos!
             </div>
 
             <div>

@@ -49,14 +49,14 @@ function Jogo(props) {
                 }
                 // Caso esteja no cano, atualizamos o estado 'estaMorto' para 'true'
                 setEstaMorto(true);
-                props.onMorrer();
+                props.onMorrer(pontos);
             }, 100);
 
             return () => clearInterval(interval);
             // console.log({ estaMorto});        
         }, 
         // Lista de dependências
-        [estaMorto]
+        [estaMorto, props, pontos]
     );
 
     // useEffect
@@ -69,13 +69,13 @@ function Jogo(props) {
                 }
         
                 setPontos(pontos + 1);
-        
-                console.log({ pontos });
+                props.onPontos(pontos + 1);
+                // console.log({ pontos });
             }, 500);
 
             return () => clearInterval(interval);
         }, 
-        [estaMorto, pontos]
+        [estaMorto, pontos, props]
     );
 
     document.onkeydown = function () {

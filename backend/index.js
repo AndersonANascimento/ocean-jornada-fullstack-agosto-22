@@ -1,5 +1,6 @@
 const express = require('express')
 const { MongoClient } = require("mongodb")
+const cors = require("cors")
 
 // const url = "mongodb://localhost:27017";
 const url = "mongodb+srv://admin:tWzHRIEBWod6wjCc@cluster0.z9grwi0.mongodb.net/";
@@ -19,6 +20,8 @@ async function main() {
   const collection = db.collection("pontuacoes")
   
   const app = express()
+
+  app.use(cors());
   
   // Sinalizando ao Express o uso de JSON no body de requests
   app.use(express.json());
@@ -54,8 +57,8 @@ async function main() {
     res.send(item)
   })
 
-  app.listen(process.env.PORT || 3000, () => 
-  console.log("Aplicação rodando em http://localhost:3000")
+  app.listen(process.env.PORT || 3333, () => 
+    console.log("Aplicação rodando em http://localhost:3000")
   )
 }
 
